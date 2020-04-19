@@ -62,9 +62,9 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: path.join(__dirname, 'src/index.html'),
-            filename: 'index.html',
-            chunks: ['index'],
-            inject: true,
+            filename: 'index.html',// 生成后的文件
+            chunks: ['index'],// 如果不指定引入的文件，那默认所有的css，js都会全部引入
+            inject: true,// script注入的位置，默认是body底部前面
             minify: {
                 html5: true,
                 collapseWhitespace: true,
