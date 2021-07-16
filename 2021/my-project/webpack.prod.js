@@ -71,15 +71,15 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "./src/search.html"),
-      filename: "search.html",
-      inject: true,
+      filename: "search.html",// 输出后的文件名称
+      inject: true, // 注入关联的js 和 css，默认注入
       // chunks: ["search"],// 如果不指定引入的文件，那默认所有的css，js都会全部引入。在多页面打包中尤为重要。
       minify: {
         html5: true,
         collapseWhitespace: true, // 清理html中的空格、换行符。
-        preserveLineBreaks: false,
-        minifyCSS: true,
-        minifyJS: true,
+        preserveLineBreaks: false, // 保留换行符
+        minifyCSS: false, // 只会压缩当前html中的CSS
+        minifyJS: false, // 只会压缩当前html中的JS
         removeComments: false, // 删除注释
       },
     }),
