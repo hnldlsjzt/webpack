@@ -1281,6 +1281,18 @@ atob@^2.1.2:
   resolved "https://registry.nlark.com/atob/download/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha1-bZUX654DDSQ2ZmZR6GvZ9vE1M8k=
 
+autoprefixer@^10.3.1:
+  version "10.3.1"
+  resolved "https://registry.nlark.com/autoprefixer/download/autoprefixer-10.3.1.tgz?cache=0&sync_timestamp=1626111096696&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fautoprefixer%2Fdownload%2Fautoprefixer-10.3.1.tgz#954214821d3aa06692406c6a0a9e9d401eafbed2"
+  integrity sha1-lUIUgh06oGaSQGxqCp6dQB6vvtI=
+  dependencies:
+    browserslist "^4.16.6"
+    caniuse-lite "^1.0.30001243"
+    colorette "^1.2.2"
+    fraction.js "^4.1.1"
+    normalize-range "^0.1.2"
+    postcss-value-parser "^4.1.0"
+
 babel-loader@^8.2.2:
   version "8.2.2"
   resolved "https://registry.nlark.com/babel-loader/download/babel-loader-8.2.2.tgz#9363ce84c10c9a40e6c753748e1441b60c8a0b81"
@@ -1501,7 +1513,7 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0:
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001243:
   version "1.0.30001245"
   resolved "https://registry.nlark.com/caniuse-lite/download/caniuse-lite-1.0.30001245.tgz?cache=0&sync_timestamp=1626238464878&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30001245.tgz#45b941bbd833cb0fa53861ff2bae746b3c6ca5d4"
   integrity sha1-RblBu9gzyw+lOGH/K650azxspdQ=
@@ -2403,6 +2415,11 @@ forwarded@0.2.0:
   version "0.2.0"
   resolved "https://registry.nlark.com/forwarded/download/forwarded-0.2.0.tgz?cache=0&sync_timestamp=1622503408398&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fforwarded%2Fdownload%2Fforwarded-0.2.0.tgz#2269936428aad4c15c7ebe9779a84bf0b2a81811"
   integrity sha1-ImmTZCiq1MFcfr6XeahL8LKoGBE=
+
+fraction.js@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.nlark.com/fraction.js/download/fraction.js-4.1.1.tgz?cache=0&sync_timestamp=1621848730310&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ffraction.js%2Fdownload%2Ffraction.js-4.1.1.tgz#ac4e520473dae67012d618aab91eda09bcb400ff"
+  integrity sha1-rE5SBHPa5nAS1hiquR7aCby0AP8=
 
 fragment-cache@^0.2.1:
   version "0.2.1"
@@ -3496,6 +3513,11 @@ normalize-path@^3.0.0:
   resolved "https://registry.npm.taobao.org/normalize-path/download/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
   integrity sha1-Dc1p/yOhybEf0JeDFmRKA4ghamU=
 
+normalize-range@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npm.taobao.org/normalize-range/download/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
+  integrity sha1-LRDAa9/TEuqXd2laTShDlFa3WUI=
+
 normalize-url@^6.0.1:
   version "6.1.0"
   resolved "https://registry.nlark.com/normalize-url/download/normalize-url-6.1.0.tgz?cache=0&sync_timestamp=1625826787829&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fnormalize-url%2Fdownload%2Fnormalize-url-6.1.0.tgz#40d0885b535deffe3f3147bec877d05fe4c5668a"
@@ -3869,6 +3891,15 @@ postcss-discard-overridden@^5.0.1:
   version "5.0.1"
   resolved "https://registry.nlark.com/postcss-discard-overridden/download/postcss-discard-overridden-5.0.1.tgz?cache=0&sync_timestamp=1621449732464&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fpostcss-discard-overridden%2Fdownload%2Fpostcss-discard-overridden-5.0.1.tgz#454b41f707300b98109a75005ca4ab0ff2743ac6"
   integrity sha1-RUtB9wcwC5gQmnUAXKSrD/J0OsY=
+
+postcss-loader@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.nlark.com/postcss-loader/download/postcss-loader-6.1.1.tgz?cache=0&sync_timestamp=1625143047790&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fpostcss-loader%2Fdownload%2Fpostcss-loader-6.1.1.tgz#58dd0a3accd9bc87cc52eff75244db578d11301a"
+  integrity sha1-WN0KOszZvIfMUu/3UkTbV40RMBo=
+  dependencies:
+    cosmiconfig "^7.0.0"
+    klona "^2.0.4"
+    semver "^7.3.5"
 
 postcss-merge-longhand@^5.0.2:
   version "5.0.2"

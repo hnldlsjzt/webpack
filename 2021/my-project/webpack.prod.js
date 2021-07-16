@@ -36,7 +36,12 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "less-loader",
+        ],
       },
       // {
       //   test: /\.(png|jpg|jpeg|gif|)$/,

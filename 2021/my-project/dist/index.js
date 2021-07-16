@@ -1,1 +1,1 @@
-(()=>{"use strict";document.write("hello world")})();
+!function(){"use strict";document.write("hello world")}();
