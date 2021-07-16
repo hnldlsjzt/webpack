@@ -91,8 +91,8 @@ module.exports = {
         html5: true,
         collapseWhitespace: true, // 清理html中的空格、换行符。
         preserveLineBreaks: false, // 保留换行符
-        minifyCSS: false, // 只会压缩当前html中的CSS
-        minifyJS: false, // 只会压缩当前html中的JS
+        minifyCSS: true, // 只会压缩当前html中的CSS
+        minifyJS: true, // 只会压缩当前html中的JS
         removeComments: false, // 删除注释
       },
     }),
