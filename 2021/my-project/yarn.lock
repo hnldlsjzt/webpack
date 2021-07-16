@@ -1569,6 +1569,13 @@ clean-css@^4.2.3:
   dependencies:
     source-map "~0.6.0"
 
+clean-webpack-plugin@^4.0.0-alpha.0:
+  version "4.0.0-alpha.0"
+  resolved "https://registry.nlark.com/clean-webpack-plugin/download/clean-webpack-plugin-4.0.0-alpha.0.tgz#2aef48dfe7565360d128f5caa0904097d969d053"
+  integrity sha1-Ku9I3+dWU2DRKPXKoJBAl9lp0FM=
+  dependencies:
+    del "^4.1.1"
+
 cliui@^5.0.0:
   version "5.0.0"
   resolved "https://registry.nlark.com/cliui/download/cliui-5.0.0.tgz#deefcfdb2e800784aa34f46fa08e06851c7bbbc5"
