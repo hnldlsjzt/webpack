@@ -39,6 +39,13 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           "css-loader",
+          {
+            loader: "px2rem-loader",
+            options: {
+              remUnit: 75, // 设计稿为750，如是375就是37.5
+              remPrecision: 8,
+            },
+          },
           "postcss-loader",
           "less-loader",
         ],
