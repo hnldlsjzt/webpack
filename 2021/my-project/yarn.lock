@@ -3704,10 +3704,10 @@ klona@^2.0.4:
   resolved "https://registry.npm.taobao.org/klona/download/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
   integrity sha1-e7Hjr/sMuGJFR+9+j2cI6i4538A=
 
-large-number-zqt@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/large-number-zqt/-/large-number-zqt-1.0.0.tgz#8d46aac1a46a6312f4654ae0623a48629e95609f"
-  integrity sha512-h19sGaJh5RHU0bcZtRTS69z5YtvGO8QuYXevNugMy9yFABnEnP7qNRwxpHHw4M549e3VxU8DEfi+qZp5saARWQ==
+large-number-zqt@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/large-number-zqt/-/large-number-zqt-1.0.2.tgz#586c6a35af33f2a6058b22b133c39e8f981b266f"
+  integrity sha512-oLAk4mru9m8qRrbYNtW/YCu3HKGsOkozXGBTm0WbkzcyY31BCaTZEyXt6Q+4IsqUzh06XlzAZH94+ZA994g1ng==
   dependencies:
     nodemon "^2.0.12"
 

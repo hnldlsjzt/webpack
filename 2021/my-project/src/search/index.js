@@ -10,6 +10,7 @@ import Texts from "./test";
 const App = () => {
   const [Text, setText] = useState(null);
   console.log("Texts", Texts);
+  console.log("this is add", add("999", "1"));
   const handleClick = () => {
     import("./test.js").then((res) => {
       // 在使用组件的时候 直接渲染 Text 而不是 <Text/>
@@ -21,7 +22,7 @@ const App = () => {
       <div className="search">我是serach --watch + devServer </div>
       <div>.hot-updata.json</div>
       <div>整体刷新 if hot</div>
-      <div>2+3={(add("999", "1"), a())}</div>
+      <div>2+3={add("999", "1")}</div>
       <img src={ReduxImg} alt="图片" />
       <img src={WebpackLogo} onClick={handleClick} alt="图片" />
       {Text ? Text : null}
