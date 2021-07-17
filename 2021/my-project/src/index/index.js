@@ -1,3 +1,5 @@
 import { helloword } from "./helloworld";
-console.log('helloword',helloword())
-document.write('helloword')
+import { add } from "../common/unit";
+console.log("helloword", helloword());
+console.log(add(1, 2));
+document.write("helloword", add(1, 2));

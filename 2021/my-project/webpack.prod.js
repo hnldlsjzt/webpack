@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin"); // 压缩css
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackExternalsPlugin = require("html-webpack-externals-plugin");
 const glob = require("glob");
 // 单页面打包
 // module.exports = {
@@ -20,11 +21,9 @@ const setMPA = () => {
   const htmlWebpackPlugins = [];
 
   const entryFiles = glob.sync(path.join(__dirname, "./src/*/index.js"));
-  console.log("entryFiles", entryFiles, Object.keys(entryFiles));
   entryFiles.map((item) => {
     const entryFile = item;
     const match = entryFile.match(/src\/(.*)\/index\.js$/);
-    console.log("match", match);
     const pageName = match && match[1];
     entry[pageName] = item;
     htmlWebpackPlugins.push(
@@ -32,7 +31,7 @@ const setMPA = () => {
         template: path.join(__dirname, `./src/${pageName}/index.html`),
         filename: `${pageName}/index.html`, // 输出后的文件名称
         inject: true, // 注入关联的js 和 css，默认注入
-        chunks: [pageName], // 如果不指定引入的文件，那默认所有的css，js都会全部引入。在多页面打包中尤为重要。
+        chunks: ["vendors", "commons", pageName], // 如果不指定引入的文件，那默认所有的css，js都会全部引入。在多页面打包中尤为重要。
         minify: {
           html5: true,
           collapseWhitespace: true, // 清理html中的空格、换行符。
@@ -50,7 +49,6 @@ const setMPA = () => {
   };
 };
 const { entry, htmlWebpackPlugins } = setMPA();
-console.log("entry", entry);
 // 多页面打包
 module.exports = {
   entry: entry,
@@ -117,6 +115,36 @@ module.exports = {
       cssProcesso: require("cssnano"),
     }),
     new CleanWebpackPlugin(),
+    // new HtmlWebpackExternalsPlugin({
+    //   externals: [
+    //     {
+    //       module: "react",
+    //       entry: "https://now8.gtimg.com/now/lib/16.8.6/react.min.js",
+    //       global: "React",
+    //     },
+    //     {
+    //       module: "react-dom",
+    //       entry: "https://now8.gtimg.com/now/lib/16.8.6/react-dom.min.js",
+    //       global: "ReactDOM",
+    //     },
+    //   ],
+    //   files: ["index/index.html"],
+    // }),
+    // new HtmlWebpackExternalsPlugin({
+    //   externals: [
+    //     {
+    //       module: "react",
+    //       entry: "https://now8.gtimg.com/now/lib/16.8.6/react.min.js",
+    //       global: "React",
+    //     },
+    //     {
+    //       module: "react-dom",
+    //       entry: "https://now8.gtimg.com/now/lib/16.8.6/react-dom.min.js",
+    //       global: "ReactDOM",
+    //     },
+    //   ],
+    //   files: ["search/index.html"],
+    // }),
     // new HtmlWebpackPlugin({
     //   template: path.join(__dirname, "./src/search.html"),
     //   filename: "search.html", // 输出后的文件名称
@@ -146,5 +174,27 @@ module.exports = {
     //   },
     // }),
   ].concat(htmlWebpackPlugins),
+  optimization: {
+    splitChunks: {
+      chunks: "all",// 单独设置这个属性也可以做到 切割
+      minSize: 0,
+      cacheGroups: {
+        // 抽离通用包
+        vendor: {
+          name: "vendors", // 改了后，需要把他加到 htmlwebpackplugin的chunk中
+          chunks: "all",
+          test: /(react|reactdom)/, // 建议仅包括您的核心框架和实用程序，并动态加载其余依赖项。
+          priority: -10, // 设置下权重，防止重复
+        },
+        // 抽离使用多次的函数组件
+        commons: {
+          name: "commons", // 打包文件名
+          chunks: "all", // 所有引入的库进行分离（推荐）
+          minChunks: 2, // 只要引用两次就打包为一个文件
+          priority: -20, // 设置下权重，防止重复
+        },
+      },
+    },
+  },
   mode: "production",
 };
