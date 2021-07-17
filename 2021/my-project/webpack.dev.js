@@ -2,7 +2,10 @@
 const { name } = require("file-loader");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const glob = require("glob");
 // 单页面打包
 // module.exports = {
 //   entry: "./src/index.js",
@@ -12,13 +15,43 @@ const webpack = require("webpack");
 //   },
 //   mode: "production",
 // };
+const setMPA = () => {
+  const entry = {};
+  const htmlWebpackPlugins = [];
+
+  const entryFiles = glob.sync(path.join(__dirname, "./src/*/index.js"));
+  entryFiles.map((item) => {
+    const entryFile = item;
+    const match = entryFile.match(/src\/(.*)\/index\.js$/);
+    const pageName = match && match[1];
+    entry[pageName] = item;
+    htmlWebpackPlugins.push(
+      new HtmlWebpackPlugin({
+        template: path.join(__dirname, `./src/${pageName}/index.html`),
+        filename: `${pageName}/index.html`, // 输出后的文件名称
+        inject: true, // 注入关联的js 和 css，默认注入
+        chunks: [pageName], // 如果不指定引入的文件，那默认所有的css，js都会全部引入。在多页面打包中尤为重要。
+        minify: {
+          html5: true,
+          collapseWhitespace: true, // 清理html中的空格、换行符。
+          preserveLineBreaks: false, // 保留换行符
+          minifyCSS: true, // 只会压缩当前html中的CSS
+          minifyJS: true, // 只会压缩当前html中的JS
+          removeComments: false, // 删除注释
+        },
+      })
+    );
+  });
+  return {
+    entry,
+    htmlWebpackPlugins,
+  };
+};
+const { entry, htmlWebpackPlugins } = setMPA();
 
 // 多页面打包
 module.exports = {
-  entry: {
-    index: "./src/index.js",
-    search: "./src/search.js",
-  },
+  entry: entry,
   output: {
     filename: "[name].js", // 多文件需要使用占位符
     path: path.join(__dirname, "dist"),
@@ -55,12 +88,23 @@ module.exports = {
       },
     ],
   },
-  // Plugins: [new webpack.HotModuleReplacementPlugin({})],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new CleanWebpackPlugin(),
+  ].concat(htmlWebpackPlugins),
   devServer: {
-    contentBase: "../my-project/dist", //  服务的基础目录
+    contentBase: "./dist", //  服务的基础目录
     hot: true,
     open: true,
     port: 8095,
   },
+  /**
+   * eval：报错时看不到行、列信息，map文件使用 eval 来执行
+   * source-map,inline-source-map: 能看到完整的原代码信息
+   * cheap-source-map: 只能看到报错行
+   *
+   */
+  devtool: "source-map",
+
   mode: "development",
 };

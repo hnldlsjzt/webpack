@@ -1,3 +1,3 @@
 import { helloword } from "./helloworld";
-
-document.write(helloword());
+console.log('helloword',helloword())
+document.write('helloword')
