@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin"); // 压缩css
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const glob = require("glob");
 // 单页面打包
 // module.exports = {
 //   entry: "./src/index.js",
@@ -14,14 +15,47 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 //   mode: "production",
 // };
 
+const setMPA = () => {
+  const entry = {};
+  const htmlWebpackPlugins = [];
+
+  const entryFiles = glob.sync(path.join(__dirname, "./src/*/index.js"));
+  console.log("entryFiles", entryFiles, Object.keys(entryFiles));
+  entryFiles.map((item) => {
+    const entryFile = item;
+    const match = entryFile.match(/src\/(.*)\/index\.js$/);
+    console.log("match", match);
+    const pageName = match && match[1];
+    entry[pageName] = item;
+    htmlWebpackPlugins.push(
+      new HtmlWebpackPlugin({
+        template: path.join(__dirname, `./src/${pageName}/index.html`),
+        filename: `${pageName}/index.html`, // 输出后的文件名称
+        inject: true, // 注入关联的js 和 css，默认注入
+        chunks: [pageName], // 如果不指定引入的文件，那默认所有的css，js都会全部引入。在多页面打包中尤为重要。
+        minify: {
+          html5: true,
+          collapseWhitespace: true, // 清理html中的空格、换行符。
+          preserveLineBreaks: false, // 保留换行符
+          minifyCSS: true, // 只会压缩当前html中的CSS
+          minifyJS: true, // 只会压缩当前html中的JS
+          removeComments: false, // 删除注释
+        },
+      })
+    );
+  });
+  return {
+    entry,
+    htmlWebpackPlugins,
+  };
+};
+const { entry, htmlWebpackPlugins } = setMPA();
+console.log("entry", entry);
 // 多页面打包
 module.exports = {
-  entry: {
-    index: "./src/index.js",
-    search: "./src/search.js",
-  },
+  entry: entry,
   output: {
-    filename: "[name].js", // 多文件需要使用占位符
+    filename: "[name]_[contenthash:8].js", // 多文件需要使用占位符
     path: path.join(__dirname, "dist"),
   },
   module: {
@@ -82,35 +116,35 @@ module.exports = {
       assetNameRegExp: /\.css$/g,
       cssProcesso: require("cssnano"),
     }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, "./src/search.html"),
-      filename: "search.html", // 输出后的文件名称
-      inject: true, // 注入关联的js 和 css，默认注入
-      // chunks: ["search"],// 如果不指定引入的文件，那默认所有的css，js都会全部引入。在多页面打包中尤为重要。
-      minify: {
-        html5: true,
-        collapseWhitespace: true, // 清理html中的空格、换行符。
-        preserveLineBreaks: false, // 保留换行符
-        minifyCSS: true, // 只会压缩当前html中的CSS
-        minifyJS: true, // 只会压缩当前html中的JS
-        removeComments: false, // 删除注释
-      },
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, "./src/index.html"),
-      filename: "index.html",
-      inject: true,
-      chunks: ["index"], // 如果不指定引入的文件，那默认所有的css，js都会全部引入
-      minify: {
-        html5: true,
-        collapseWhitespace: true,
-        preserveLineBreaks: false,
-        minifyCSS: true,
-        minifyJS: true,
-        removeComments: false,
-      },
-    }),
     new CleanWebpackPlugin(),
-  ],
+    // new HtmlWebpackPlugin({
+    //   template: path.join(__dirname, "./src/search.html"),
+    //   filename: "search.html", // 输出后的文件名称
+    //   inject: true, // 注入关联的js 和 css，默认注入
+    //   // chunks: ["search"],// 如果不指定引入的文件，那默认所有的css，js都会全部引入。在多页面打包中尤为重要。
+    //   minify: {
+    //     html5: true,
+    //     collapseWhitespace: true, // 清理html中的空格、换行符。
+    //     preserveLineBreaks: false, // 保留换行符
+    //     minifyCSS: true, // 只会压缩当前html中的CSS
+    //     minifyJS: true, // 只会压缩当前html中的JS
+    //     removeComments: false, // 删除注释
+    //   },
+    // }),
+    // new HtmlWebpackPlugin({
+    //   template: path.join(__dirname, "./src/index.html"),
+    //   filename: "index.html",
+    //   inject: true,
+    //   chunks: ["index"], // 如果不指定引入的文件，那默认所有的css，js都会全部引入
+    //   minify: {
+    //     html5: true,
+    //     collapseWhitespace: true,
+    //     preserveLineBreaks: false,
+    //     minifyCSS: true,
+    //     minifyJS: true,
+    //     removeComments: false,
+    //   },
+    // }),
+  ].concat(htmlWebpackPlugins),
   mode: "production",
 };
