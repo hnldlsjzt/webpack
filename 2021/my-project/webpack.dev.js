@@ -1,11 +1,11 @@
 "use strict";
-const { name } = require("file-loader");
 const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const glob = require("glob");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");// HTML 模板插件
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");// 构建时自动清除output的产物
+const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin"); // 优化构建日志
+
 // 单页面打包
 // module.exports = {
 //   entry: "./src/index.js",
@@ -91,12 +91,14 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new CleanWebpackPlugin(),
+    new FriendlyErrorsWebpackPlugin(),
   ].concat(htmlWebpackPlugins),
   devServer: {
     contentBase: "./dist", //  服务的基础目录
     hot: true,
     open: true,
     port: 8095,
+    stats: "errors-only", // 在热更新时也打印日志
   },
   /**
    * eval：报错时看不到行、列信息，map文件使用 eval 来执行
@@ -105,6 +107,6 @@ module.exports = {
    *
    */
   devtool: "source-map",
-
+  stats: "errors-only",
   mode: "development",
 };

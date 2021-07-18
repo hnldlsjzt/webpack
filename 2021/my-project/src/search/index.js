@@ -22,10 +22,11 @@ const App = () => {
       <div className="search">我是serach --watch + devServer </div>
       <div>.hot-updata.json</div>
       <div>整体刷新 if hot</div>
-      <div>2+3={add("999", "1")}</div>
+      <div>2+3 = {add("999", "1")}</div>
       <img src={ReduxImg} alt="图片" />
       <img src={WebpackLogo} onClick={handleClick} alt="图片" />
       {Text ? Text : null}
+      <div>增加 friendly-errors-webpack-plugin</div>
       {/* <Texts /> */}
     </>
   );

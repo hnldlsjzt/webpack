@@ -5,6 +5,7 @@ const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plug
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackExternalsPlugin = require("html-webpack-externals-plugin");
+const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");// 优化构建日志
 const glob = require("glob");
 // 单页面打包
 // module.exports = {
@@ -145,6 +146,7 @@ module.exports = {
       ],
       files: ["search/index.html"],
     }),
+    new FriendlyErrorsWebpackPlugin(),
     // new HtmlWebpackPlugin({
     //   template: path.join(__dirname, "./src/search.html"),
     //   filename: "search.html", // 输出后的文件名称
@@ -196,5 +198,6 @@ module.exports = {
   //     },
   //   },
   // },
+  stats: "errors-only",
   mode: "production",
 };
