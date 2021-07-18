@@ -5,7 +5,7 @@ const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plug
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackExternalsPlugin = require("html-webpack-externals-plugin");
-const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");// 优化构建日志
+const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin"); // 优化构建日志
 const glob = require("glob");
 // 单页面打包
 // module.exports = {
@@ -147,6 +147,20 @@ module.exports = {
       files: ["search/index.html"],
     }),
     new FriendlyErrorsWebpackPlugin(),
+    function () {
+      // 这里是 this 是 compiler
+      this.hooks.done.tap("done", (stats) => {
+        console.log("stats", stats.compilation.errors, process.argv);
+        if (
+          stats.compilation.errors &&
+          stats.compilation.errors.length &&
+          process.argv.indexOf("--watch") == -1
+        ) {
+          console.log("build error");
+          process.exit(1);
+        }
+      });
+    },
     // new HtmlWebpackPlugin({
     //   template: path.join(__dirname, "./src/search.html"),
     //   filename: "search.html", // 输出后的文件名称
