@@ -214,4 +214,10 @@ module.exports = {
   // },
   stats: "errors-only",
   mode: "production",
+  cache: {
+    type: "filesystem",
+    buildDependencies: {
+      config: [__filename],
+    },
+  },
 };

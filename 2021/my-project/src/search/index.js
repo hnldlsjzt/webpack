@@ -27,6 +27,7 @@ const App = () => {
       <img src={WebpackLogo} onClick={handleClick} alt="图片" />
       {Text ? Text : null}
       <div>增加 friendly-errors-webpack-plugin</div>
+      <div>多页面热更新11</div>
       {/* <Texts /> */}
     </>
   );

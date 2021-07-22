@@ -2,8 +2,8 @@
 const path = require("path");
 const glob = require("glob");
 const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");// HTML 模板插件
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");// 构建时自动清除output的产物
+const HtmlWebpackPlugin = require("html-webpack-plugin"); // HTML 模板插件
+const { CleanWebpackPlugin } = require("clean-webpack-plugin"); // 构建时自动清除output的产物
 const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin"); // 优化构建日志
 
 // 单页面打包
@@ -94,7 +94,7 @@ module.exports = {
     new FriendlyErrorsWebpackPlugin(),
   ].concat(htmlWebpackPlugins),
   devServer: {
-    contentBase: "./dist", //  服务的基础目录
+    contentBase: "/my-project/dist", //  服务的基础目录
     hot: true,
     open: true,
     port: 8095,
@@ -109,4 +109,7 @@ module.exports = {
   devtool: "source-map",
   stats: "errors-only",
   mode: "development",
+  cache: {
+    type: "memory",
+  },
 };
