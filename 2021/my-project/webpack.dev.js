@@ -94,11 +94,15 @@ module.exports = {
     new FriendlyErrorsWebpackPlugin(),
   ].concat(htmlWebpackPlugins),
   devServer: {
-    contentBase: "/my-project/dist", //  服务的基础目录
+    contentBase: path.join(__dirname, "dist"), //  服务的基础目录
+    // compress: true,
     hot: true,
-    open: true,
+    // liveReload: true,
+    // open: true,
     port: 8095,
-    stats: "errors-only", // 在热更新时也打印日志
+    // inline: false,
+    // hotOnly: true,
+    // stats: "errors-only", // 在热更新时也打印日志
   },
   /**
    * eval：报错时看不到行、列信息，map文件使用 eval 来执行

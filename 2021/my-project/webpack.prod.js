@@ -62,6 +62,7 @@ module.exports = {
       {
         test: /\.js$/,
         use: "babel-loader",
+        include: path.resolve(__dirname, "./src"),
       },
       {
         test: /\.css$/,
@@ -150,13 +151,13 @@ module.exports = {
     function () {
       // 这里是 this 是 compiler
       this.hooks.done.tap("done", (stats) => {
-        console.log("stats", stats.compilation.errors, process.argv);
+        // console.log("stats", stats.compilation.errors, process.argv);
         if (
           stats.compilation.errors &&
           stats.compilation.errors.length &&
           process.argv.indexOf("--watch") == -1
         ) {
-          console.log("build error");
+          // console.log("build error");
           process.exit(1);
         }
       });
@@ -212,6 +213,20 @@ module.exports = {
   //     },
   //   },
   // },
+  resolve: {
+    alias: {
+      react: path.resolve(
+        __dirname,
+        "./node_modules/react/umd/react.production.min.js"
+      ),
+      "react-dom": path.resolve(
+        __dirname,
+        "./node_modules/react-dom/umd/react-dom.production.min.js"
+      ),
+    },// 声明别名，另外告诉webpack查找包时，直接去这个目录找
+    extensions: [".js"],// 补齐后缀
+    modules: [path.resolve(__dirname, "./node_modules")],// 查找包时，只到当前项目的node_modules中找
+  },
   stats: "errors-only",
   mode: "production",
   cache: {
