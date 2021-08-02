@@ -22,6 +22,7 @@ const App = () => {
       <div className="search">我是serach --watch + devServer </div>
       <div>.hot-updata.json</div>
       <div>整体刷新 if hot</div>
+      <div>增加target:'web',才能热更新</div>
       {/* <div>2+3 = {add("999", "1")}</div> */}
       <img src={ReduxImg} alt="图片" />
       <img src={WebpackLogo} onClick={handleClick} alt="图片" />

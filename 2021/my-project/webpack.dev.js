@@ -104,6 +104,7 @@ module.exports = {
     // hotOnly: true,
     // stats: "errors-only", // 在热更新时也打印日志
   },
+  target: "web",
   /**
    * eval：报错时看不到行、列信息，map文件使用 eval 来执行
    * source-map,inline-source-map: 能看到完整的原代码信息
