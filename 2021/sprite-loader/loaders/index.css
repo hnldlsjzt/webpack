@@ -1,0 +1,10 @@
+.img1 {
+  height: 100px;
+  background: url(./images/q.jpg?__sprite);
+}
+
+.img2 {
+  height: 100px;
+
+  background: url(./images/s.jpg?__sprite);
+}
