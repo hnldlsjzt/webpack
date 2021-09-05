@@ -1,6 +1,7 @@
 const path = require("path");
 
 module.exports = {
+  mode: "production",
   entry: path.resolve(__dirname, "./src/index.js"),
   output: {
     filename: "main.js",
@@ -12,7 +13,7 @@ module.exports = {
         test: /\.js$/,
         use: [
           path.resolve("./loaders/a-loader.js"),
-          path.resolve("./loaders/b-loader.js"),// 它先打印出来
+          path.resolve("./loaders/b-loader.js"), // 它先打印出来
         ],
       },
     ],
