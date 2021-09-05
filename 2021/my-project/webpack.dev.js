@@ -15,6 +15,7 @@ const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin"); /
 //   },
 //   mode: "production",
 // };
+let allPageName = []; // 用于开发模式下打开多页面应用
 const setMPA = () => {
   const entry = {};
   const htmlWebpackPlugins = [];
@@ -55,6 +56,7 @@ module.exports = {
   output: {
     filename: "[name].js", // 多文件需要使用占位符
     path: path.join(__dirname, "dist"),
+    publicPath: "/",
   },
   module: {
     rules: [
@@ -96,10 +98,20 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, "dist"), //  服务的基础目录
     // compress: true,
+    compress: true,// 开启gzip压缩
     hot: true,
     // liveReload: true,
-    // open: true,
+    open: true,
+    // openPage: 'search',// 打开指定页面
+    openPage: ["index", "search"],// 多页面打开
     port: 8095,
+    progress: true,
+    // http2: true,
+    // https: {
+    //   key: fs.readFileSync("/path/to/server.key"),
+    //   cert: fs.readFileSync("/path/to/server.crt"),
+    //   ca: fs.readFileSync("/path/to/ca.pem"),
+    // },
     // inline: false,
     // hotOnly: true,
     // stats: "errors-only", // 在热更新时也打印日志
