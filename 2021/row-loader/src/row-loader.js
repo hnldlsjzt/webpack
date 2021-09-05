@@ -6,6 +6,8 @@ module.exports = function (resource) {
   const { name } = loaderUtils.getOptions(this);
   console.log("name", name); // 获取到test
   let string = JSON.stringify(resource).replace("foo", "zee");
+  // 关闭缓存，webpack 默认开启，但又依赖的 loader 不能缓存
+  this.cacheable(false);//cacheable: false,
 
   // 返回单个与多个参数
   // return `export default ${string}`;
