@@ -5,7 +5,15 @@ const { runLoaders } = require("loader-runner");
 runLoaders(
   {
     resource: path.join(__dirname, "./src/demo.txt"),
-    loaders: [path.join(__dirname, "./src/row-loader.js")],
+    // loaders: [path.join(__dirname, "./src/row-loader.js")],// 设置单个 loader
+    loaders: [
+      {
+        loader: path.join(__dirname, "./src/row-loader.js"),
+        options: {
+          name: "test",
+        },
+      },
+    ],
     context: { minimize: true },
     // processResource: (loaderContext, resourcePath, callback) => {
     //   console.log("processResource", loaderContext, resourcePath, callback);
